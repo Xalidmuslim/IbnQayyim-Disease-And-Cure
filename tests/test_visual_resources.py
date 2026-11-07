@@ -58,6 +58,11 @@ class VisualResourceRegression(unittest.TestCase):
         self.assertIn('settings.useWideViewPort = true',source)
         self.assertIn('settings.loadWithOverviewMode = false',source)
 
+    def test_launcher_icon_is_original(self):
+        manifest=(ROOT / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
+        self.assertIn('android:icon="@mipmap/ic_launcher"', manifest)
+        self.assertEqual((ASSETS / "app_icon.png").read_bytes(),(ROOT / "app/src/main/res/mipmap-xxxhdpi/ic_launcher.png").read_bytes())
+
     def test_all_book_content_unchanged(self):
         html=(ASSETS / 'index.html').read_bytes()
         self.assertEqual('4ed99bfcbd061b8f9490e485af23560e17ceba20494eac2055bc13bf364b2ded',hashlib.sha256(html).hexdigest())
