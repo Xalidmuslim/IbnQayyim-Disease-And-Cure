@@ -1,0 +1,4 @@
+Noto Serif SemiBold (Google) and Andika Italic (SIL International)
+Both bundled unmodified under SIL OPEN FONT LICENSE Version 1.1.
+See embedded font metadata for copyright, licensing, and full texts.
+License: https://openfontlicense.org/open-font-license-official-text/

@@ -34,6 +34,11 @@ class MainActivity : Activity() {
             setBackgroundColor(Color.rgb(238, 240, 237))
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
+            // Fixed CSS pixel proportions, independent of Android system font scale.
+            settings.textZoom = 100
+            // Respect the existing HTML width=device-width without overview shrinkage.
+            settings.useWideViewPort = true
+            settings.loadWithOverviewMode = false
             settings.allowFileAccess = false // android_asset remains accessible
             settings.allowContentAccess = false
             settings.setSupportZoom(false)
