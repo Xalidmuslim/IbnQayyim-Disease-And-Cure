@@ -11,6 +11,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.window.OnBackInvokedCallback
+import android.window.OnBackInvokedDispatcher
 
 /**
  * Minimal Android shell for the existing v44 reading engine.
@@ -20,6 +22,7 @@ import android.webkit.WebViewClient
 class MainActivity : Activity() {
     private lateinit var reader: WebView
     private val homeUrl = "file:///android_asset/index.html"
+    private var modernBackCallback: OnBackInvokedCallback? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +54,23 @@ class MainActivity : Activity() {
             settings.allowUniversalAccessFromFileURLs = false
             webChromeClient = WebChromeClient()
             webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView, url: String?) {
+                    super.onPageFinished(view, url)
+                    if (url != homeUrl) return
+                    // Keep the 114 chapters and the entire v44 HTML byte-for-byte.
+                    // Only chapter-card title typography is adjusted by a CSS asset.
+                    view.evaluateJavascript("""
+                        (function () {
+                          if (document.getElementById('compact-chapter-headings-v46')) return;
+                          const link = document.createElement('link');
+                          link.id = 'compact-chapter-headings-v46';
+                          link.rel = 'stylesheet';
+                          link.href = 'compact_sections.css';
+                          document.head.appendChild(link);
+                        })();
+                    """.trimIndent(), null)
+                }
+
                 override fun shouldOverrideUrlLoading(
                     view: WebView,
                     request: WebResourceRequest
@@ -71,15 +91,32 @@ class MainActivity : Activity() {
             }
         }
         setContentView(reader)
+        // Android 13+ dispatches the gesture using the new system Back API.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val callback = OnBackInvokedCallback { navigateBackInReader() }
+            modernBackCallback = callback
+            onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                OnBackInvokedDispatcher.PRIORITY_DEFAULT, callback
+            )
+        }
         if (savedInstanceState == null || reader.restoreState(savedInstanceState) == null) {
             reader.loadUrl(homeUrl)
         }
     }
 
-    @Deprecated("Android Back dispatches to the book's existing back() hierarchy")
+    private fun navigateBackInReader() {
+        if (!::reader.isInitialized) return
+        // The book has a navigation state machine, not WebView browser history.
+        reader.evaluateJavascript(
+            "if (typeof window.__androidBack === 'function') { window.__androidBack(); } " +
+                "else if (typeof back === 'function') { back(); }",
+            null
+        )
+    }
+
+    @Deprecated("Used only by pre-Android 13 system Back dispatch")
     override fun onBackPressed() {
-        // The v44 HTML defines back() and handles read/quiz/home transitions.
-        reader.evaluateJavascript("if (typeof back === 'function') { back(); }", null)
+        navigateBackInReader()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -88,6 +125,10 @@ class MainActivity : Activity() {
     }
 
     override fun onDestroy() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            modernBackCallback?.let { onBackInvokedDispatcher.unregisterOnBackInvokedCallback(it) }
+            modernBackCallback = null
+        }
         reader.stopLoading()
         reader.destroy()
         super.onDestroy()

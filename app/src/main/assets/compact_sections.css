@@ -1,0 +1,21 @@
+/* v46 only adjusts chapter-card headings in contents and on the main screen.
+   The reader and its font selection are intentionally untouched. */
+html body #root .item .itemtitle,
+html body #root .home-main .item .itemtitle,
+html body #root .main .list > .item .itemtitle,
+html body[data-theme="dark"] #root .item .itemtitle {
+    font-family: "Reader Navigation", "Roboto Condensed", Roboto, Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    line-height: 1.30 !important;
+    letter-spacing: .005em !important;
+    overflow-wrap: break-word !important;
+}
+html body #root .item .itemtitle .itemmeta {
+    font-family: Roboto, Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.38 !important;
+    letter-spacing: normal !important;
+}
