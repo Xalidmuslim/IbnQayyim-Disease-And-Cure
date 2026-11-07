@@ -16,6 +16,11 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            // Preserve data in v44: GitHub Actions debug signing keys differ per run.
+            applicationIdSuffix = ".preview45"
+            versionNameSuffix = "-preview"
+        }
         release {
             isMinifyEnabled = false
         }

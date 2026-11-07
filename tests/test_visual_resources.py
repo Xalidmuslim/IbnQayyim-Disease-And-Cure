@@ -58,6 +58,12 @@ class VisualResourceRegression(unittest.TestCase):
         self.assertIn('settings.useWideViewPort = true',source)
         self.assertIn('settings.loadWithOverviewMode = false',source)
 
+    def test_debug_install_is_side_by_side(self):
+        gradle=(ROOT / "app/build.gradle.kts").read_text(encoding="utf-8")
+        self.assertIn('applicationIdSuffix = ".preview45"', gradle)
+        label=(ROOT / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
+        self.assertIn('android:label="Болезнь и исцеление v45"', label)
+
     def test_launcher_icon_is_original(self):
         manifest=(ROOT / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
         self.assertIn('android:icon="@mipmap/ic_launcher"', manifest)
