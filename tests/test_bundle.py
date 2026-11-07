@@ -1,4 +1,4 @@
-"""Static content and application-structure regression tests for v44."""
+"""Static content and application-structure regression tests for editorial v48."""
 from pathlib import Path
 import hashlib
 import json
@@ -7,7 +7,7 @@ import unittest
 
 BASE = Path(__file__).resolve().parents[1]
 HTML = BASE / 'app/src/main/assets/index.html'
-EXPECTED_SHA256 = '4ed99bfcbd061b8f9490e485af23560e17ceba20494eac2055bc13bf364b2ded'
+EXPECTED_SHA256 = '9fa6fbcd27ad89db8ee46758b724136fa2effd8e98b7180965e0b49ba9db88f8'
 
 class BundlingTests(unittest.TestCase):
     @classmethod

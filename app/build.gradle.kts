@@ -11,14 +11,14 @@ android {
         applicationId = "com.xalidmuslim.diseaseandcure"
         minSdk = 26
         targetSdk = 35
-        versionCode = 47
-        versionName = "0.47.0"
+        versionCode = 48
+        versionName = "0.48.0"
     }
 
     buildTypes {
         getByName("debug") {
             // Preserve data in v44: GitHub Actions debug signing keys differ per run.
-            applicationIdSuffix = ".preview47"
+            applicationIdSuffix = ".preview48"
             versionNameSuffix = "-preview"
         }
         release {
