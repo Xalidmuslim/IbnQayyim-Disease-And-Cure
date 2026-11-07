@@ -35,17 +35,21 @@ class NavigationTypographyRegression(unittest.TestCase):
 
     def test_compact_font_is_scoped_to_chapter_card_titles(self):
         css = CSS.read_text(encoding='utf-8')
-        self.assertIn('Reader Navigation', css)
+        self.assertIn('font-family: Roboto, "Arial", sans-serif', css)
+        self.assertNotIn('font-family: "Reader Navigation"',css)
+        self.assertIn('font-weight: 500',css)
+        self.assertNotIn('font-weight: 600',css)
         self.assertIn('#root .item .itemtitle', css)
-        self.assertIn('font-size: 14px', css)
+        self.assertIn('font-size: 13.5px', css)
+        self.assertIn('line-height: 1.22', css)
         self.assertNotIn('.reader h2', css)
         self.assertNotIn('.booktext', css)
         self.assertIn('onPageFinished', self.android)
         self.assertIn('compact_sections.css', self.android)
 
-    def test_v46_install_cannot_overwrite_previous_install(self):
+    def test_v47_install_cannot_overwrite_previous_install(self):
         gradle = (ROOT/'app/build.gradle.kts').read_text(encoding='utf-8')
-        self.assertIn('versionCode = 46', gradle)
-        self.assertIn('applicationIdSuffix = ".preview46"', gradle)
+        self.assertIn('versionCode = 47', gradle)
+        self.assertIn('applicationIdSuffix = ".preview47"', gradle)
 
 if __name__ == '__main__': unittest.main()

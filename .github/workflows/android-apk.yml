@@ -1,4 +1,4 @@
-name: Android APK v46
+name: Android APK v47
 on:
   push:
     branches: [main]
@@ -32,6 +32,6 @@ jobs:
         run: gradle :app:assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
-          name: IbnKayim-v46-Android-debug-apk
+          name: IbnKayim-v47-Android-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
