@@ -47,9 +47,9 @@ class NavigationTypographyRegression(unittest.TestCase):
         self.assertIn('onPageFinished', self.android)
         self.assertIn('compact_sections.css', self.android)
 
-    def test_v48_install_cannot_overwrite_previous_install(self):
+    def test_v49_install_cannot_overwrite_previous_install(self):
         gradle = (ROOT/'app/build.gradle.kts').read_text(encoding='utf-8')
-        self.assertIn('versionCode = 48', gradle)
-        self.assertIn('applicationIdSuffix = ".preview48"', gradle)
+        self.assertIn('versionCode = 49', gradle)
+        self.assertIn('applicationIdSuffix = ".preview49"', gradle)
 
 if __name__ == '__main__': unittest.main()

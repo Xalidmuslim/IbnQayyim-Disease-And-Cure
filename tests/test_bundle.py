@@ -7,7 +7,7 @@ import unittest
 
 BASE = Path(__file__).resolve().parents[1]
 HTML = BASE / 'app/src/main/assets/index.html'
-EXPECTED_SHA256 = '9fa6fbcd27ad89db8ee46758b724136fa2effd8e98b7180965e0b49ba9db88f8'
+EXPECTED_SHA256 = '422756a2529207d17e46a47311fcbb478e8a7dee98fc66232325a4572f0475de'
 
 class BundlingTests(unittest.TestCase):
     @classmethod

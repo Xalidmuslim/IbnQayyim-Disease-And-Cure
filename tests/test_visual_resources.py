@@ -60,17 +60,17 @@ class VisualResourceRegression(unittest.TestCase):
 
     def test_debug_install_is_side_by_side(self):
         gradle=(ROOT / "app/build.gradle.kts").read_text(encoding="utf-8")
-        self.assertIn('applicationIdSuffix = ".preview48"', gradle)
+        self.assertIn('applicationIdSuffix = ".preview49"', gradle)
         label=(ROOT / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
-        self.assertIn('android:label="Болезнь и исцеление v48"', label)
+        self.assertIn('android:label="Болезнь и исцеление v49"', label)
 
     def test_launcher_icon_is_original(self):
         manifest=(ROOT / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
         self.assertIn('android:icon="@mipmap/ic_launcher"', manifest)
         self.assertEqual((ASSETS / "app_icon.png").read_bytes(),(ROOT / "app/src/main/res/mipmap-xxxhdpi/ic_launcher.png").read_bytes())
 
-    def test_v48_editorial_html_hash(self):
+    def test_v49_highlight_html_hash(self):
         html=(ASSETS / 'index.html').read_bytes()
-        self.assertEqual('9fa6fbcd27ad89db8ee46758b724136fa2effd8e98b7180965e0b49ba9db88f8',hashlib.sha256(html).hexdigest())
+        self.assertEqual('422756a2529207d17e46a47311fcbb478e8a7dee98fc66232325a4572f0475de',hashlib.sha256(html).hexdigest())
 
 if __name__ == '__main__':unittest.main()
