@@ -60,9 +60,9 @@ class VisualResourceRegression(unittest.TestCase):
 
     def test_debug_install_is_side_by_side(self):
         gradle=(ROOT / "app/build.gradle.kts").read_text(encoding="utf-8")
-        self.assertIn('applicationIdSuffix = ".preview49"', gradle)
+        self.assertIn('applicationIdSuffix = ".preview50"', gradle)
         label=(ROOT / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
-        self.assertIn('android:label="Болезнь и исцеление v49"', label)
+        self.assertIn('android:label="Болезнь и исцеление v50"', label)
 
     def test_launcher_icon_is_original(self):
         manifest=(ROOT / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")

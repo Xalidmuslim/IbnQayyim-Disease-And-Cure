@@ -3,7 +3,7 @@
     <!-- Deliberately no INTERNET permission: the reading experience is offline. -->
     <application
         android:allowBackup="true"
-        android:label="Болезнь и исцеление v49"
+        android:label="Болезнь и исцеление v50"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"

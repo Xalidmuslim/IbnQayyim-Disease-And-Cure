@@ -69,6 +69,16 @@ class MainActivity : Activity() {
                           document.head.appendChild(link);
                         })();
                     """.trimIndent(), null)
+                    // Inject a narrow DOM-text correction, leaving the protected book HTML unchanged.
+                    view.evaluateJavascript("""
+                        (function () {
+                          if (document.getElementById('footer-notice-fix-v50')) return;
+                          const script = document.createElement('script');
+                          script.id = 'footer-notice-fix-v50';
+                          script.src = 'footer_notice_fix.js';
+                          document.head.appendChild(script);
+                        })();
+                    """.trimIndent(), null)
                 }
 
                 override fun shouldOverrideUrlLoading(
